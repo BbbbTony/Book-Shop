@@ -3,8 +3,8 @@ const { StatusCodes } = require('http-status-codes');
 
 const allBooks = (req, res) => {
     let { category_id, newBooks, limit, currentPage } = req.query;
-    let offset = limit * (currentPage - 1);
     let sql = `SELECT *, (SELECT count(*) FROM likes WHERE liked_book_id=books.id) as likes from books`;
+    let offset = limit * (currentPage - 1);
     let values = [];
     if (category_id && newBooks) {
         sql += ` WHERE category_id=? AND pub_date BETWEEN date_sub(now(), INTERVAL 1 MONTH) AND now()`;
